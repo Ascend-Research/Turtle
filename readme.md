@@ -1,6 +1,6 @@
 # Turtle: Learning Truncated Causal History Model
 
-This is the official PyTorch implementation of the paper **Learning Truncated Causal History Model for Video Restoration** which is accepted to NeurIPS'24.
+The official PyTorch implementation for **Learning Truncated Causal History Model for Video Restoration**, accepted to NeurIPS 2024.
 
 ## Video Examples
 
