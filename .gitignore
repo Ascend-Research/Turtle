@@ -1,0 +1,16 @@
+.DS_Store
+.idea/*
+experiments
+logs/
+*results*
+*__pycache__*
+*.sh
+datasets
+basicsr.egg-info
+tb_logger
+placeholder_datasetDAVIS
+placeholder_dataset
+outputs
+options
+basicsr/inference_outputs
+inference_outputs

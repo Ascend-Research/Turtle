@@ -1,0 +1,134 @@
+name: Final_Gaia_Gopro
+model_type: VideoRestorationModel
+scale: 1
+num_gpu: 8
+manual_seed: 10
+n_sequence: 5 # n_frames
+dir_data: ['/home/amir/datasets/GoPro/train/']
+n_colors: 3
+rgb_range: 1
+no_augment: False
+loss_type: 1*L1
+patch_size: 192
+size_must_mode: 4
+model: Turtle_t1_arch
+pretrain_models_dir: None
+type: deblurring
+dim: 64
+Enc_blocks: [2, 6, 10]
+Middle_blocks: 11
+Dec_blocks: [10, 6, 2]
+num_refinement_blocks: 2
+use_both_input: False
+num_heads: [1, 2, 4, 8]
+num_frames_tocache: 3
+ffn_expansion_factor: 2.5
+
+encoder1_attn_type1 : "ReducedAttn"
+encoder1_attn_type2 : "ReducedAttn"
+encoder1_ffw_type : "FFW"
+
+encoder2_attn_type1 : "ReducedAttn"
+encoder2_attn_type2 : "ReducedAttn"
+encoder2_ffw_type : "FFW"
+
+encoder3_attn_type1 : "Channel"
+encoder3_attn_type2 : "Channel"
+encoder3_ffw_type : "GFFW"
+
+decoder1_attn_type1 : "Channel"
+decoder1_attn_type2 : "CHM"
+decoder1_ffw_type : "GFFW"
+
+decoder2_attn_type1 : "Channel"
+decoder2_attn_type2 : "CHM"
+decoder2_ffw_type : "GFFW"
+
+decoder3_attn_type1 : "Channel"
+decoder3_attn_type2 : "CHM"
+decoder3_ffw_type : "GFFW"
+
+latent_attn_type1 : "FHR"
+latent_attn_type2 : "Channel"
+latent_attn_type3 : "FHR"
+latent_ffw_type : "GFFW"
+
+refinement_attn_type1 : "ReducedAttn"
+refinement_attn_type2 : "ReducedAttn"
+refinement_ffw_type : "GFFW"
+
+datasets:
+  train:
+    name: gopro-train
+    filename_tmpl: '{}'
+    io_backend:
+      type: lmdb
+
+    gt_size: 192
+    use_flip: false
+    use_rot: false
+
+    # data loader
+    use_shuffle: true
+    num_worker_per_gpu: 8
+    batch_size_per_gpu: 2
+    dataset_enlarge_ratio: 1
+    prefetch_mode: ~
+
+  val:
+    name: gopro-test
+    dir_data: ['/home/amir/datasets/GoPro/test/']
+
+path:
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: ~
+
+train:
+  optim_g:
+    type: Adam
+    lr: !!float 4e-4
+    weight_decay: 0
+    betas: [0.9, 0.99]
+ 
+  scheduler:
+    type: TrueCosineAnnealingLR
+    T_max: 200000
+    eta_min: !!float 1e-7
+
+  total_iter: 200000
+  warmup_iter: -1 # no warm up
+
+  # losses
+  pixel_opt:
+    type: L1Loss
+    loss_weight: 1
+    reduction: mean
+
+# validation settings
+val:
+  val_freq: 10000
+  save_img: true
+  grids: true
+  crop_size: 192
+  max_minibatch: 8
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+
+# logging settings
+logger:
+  print_freq: 200
+  save_checkpoint_freq: !!float 10000
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500
