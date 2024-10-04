@@ -15,7 +15,19 @@ The official PyTorch implementation for **Learning Truncated Causal History Mode
 </p>
 
 
+## Table of Contents
+1. [Installation](#installation)
+2. [Trained Models](#trained-models)
+3. [Dataset Preparation](#1-dataset-preparation)
+4. [Training](#2-training)
+5. [Evaluation](#3-evaluation)
+    - [Testing the Model](#31-testing-the-model)
+    - [Inference on Given Videos](#32-inference-on-given-videos)
+6. [Model Complexity and Inference Speed](#4-model-complexity-and-inference-speed)
+7. [Acknowledgments](#5-Acknowledgments)
+8. [Citation](#6-citation)
 
+   
 ## Installation
 This implementation is based on [BasicSR](https://github.com/xinntao/BasicSR) which is an open-source toolbox for image/video restoration tasks.
 
@@ -32,13 +44,13 @@ python setup.py develop --no_cuda_ext
 
 ## Trained Models
 
-You can download our trained models from google drive:
+You can download our trained models from Google Drive:
 
 [Trained Models](https://drive.google.com/drive/folders/1Mur4IboaNgEW5qyynTIHq8CSAGtyykrA?usp=sharing)
 
 
-## 1. Dataset Prepration
-To obtain the datasets, follow the official instructions provided by each dataset's provider and download them into the dataset folder. You can download the datasets for each of the task from the following links (offical sources reported by their respective authors).
+## 1. Dataset Preparation
+To obtain the datasets, follow the official instructions provided by each dataset's provider and download them into the dataset folder. You can download the datasets for each of the task from the following links (official sources reported by their respective authors).
 
 1. Desnowing: [RSVD](https://haoyuchen.com/VideoDesnowing)
 2. Raindrops and Rainstreaks Removal: [VRDS](https://hkustgz-my.sharepoint.com/personal/hwu375_connect_hkust-gz_edu_cn/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fhwu375%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2FVRDS&ga=1)
@@ -72,7 +84,7 @@ The directory structure, including the ground truth ('gt') for reference frames 
 ```
 
 ## 2. Training
-To train the model, make sure you select the appropriate dataloader in the `train.py`. There are two options as follows.
+To train the model, make sure you select the appropriate data loader in the `train.py`. There are two options as follows.
 
 1. For deblurring, denoising, deraining, etc. keep the following import line, and comment the superresolution one.
 `from basicsr.data.video_image_dataset import VideoImageDataset` 
@@ -138,7 +150,7 @@ This pipeline processes a video by extracting frames and running a pre-trained m
 python basicsr/models/archs/turtle_arch.py
 ```
 
-### 5. Acknowledgements
+### 5. Acknowledgments
 
 This codebase borrows from the following repositories.
 
