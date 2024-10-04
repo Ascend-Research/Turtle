@@ -98,7 +98,7 @@ python -m torch.distributed.launch --nproc_per_node=8 --master_port=8080 basicsr
 
 ## 3. Evaluation
 
-The pretrained models can be downloaded from the [GDrive]() link.
+The pretrained models can be downloaded from the [GDrive link](https://drive.google.com/drive/folders/1Mur4IboaNgEW5qyynTIHq8CSAGtyykrA?usp=sharing).
 
 ### 3.1 Testing the model
 To evaluate the pre-trained model use this command:
