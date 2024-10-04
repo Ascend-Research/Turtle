@@ -16,6 +16,13 @@ pip install -r requirements.txt
 python setup.py develop --no_cuda_ext
 ```
 
+## Trained Models
+
+You can download our trained models from the following link:
+
+[Trained Models](https://drive.google.com/drive/folders/1Mur4IboaNgEW5qyynTIHq8CSAGtyykrA?usp=sharing)
+
+
 ## 1. Dataset Prepration
 To obtain the datasets, follow the official instructions provided by each dataset's provider and download them into the dataset folder. You can download the datasets for each of the task from the following links (offical sources reported by their respective authors).
 
