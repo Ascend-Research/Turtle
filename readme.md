@@ -2,17 +2,16 @@
 
 The official PyTorch implementation for **Learning Truncated Causal History Model for Video Restoration**, accepted to NeurIPS 2024.
 
-## Video Examples
 
 <!-- Start of the GIF grid -->
 <p align="center">
-  <img src="assets/gopro.gif" alt="Restored Video 1" width="320" height="240">
-  <img src="assets/nightrain30.gif" alt="Restored Video 2" width="320" height="240">
+  <img src="assets/gopro.gif" alt="Restored Video 1" width="240" height="180">
+  <img src="assets/nightrain30.gif" alt="Restored Video 2" width="240" height="180">
 </p>
 
 <p align="center">
-  <img src="assets/raindrop.gif" alt="Restored Video 3" width="320" height="240">
-  <img src="assets/snowwww.gif" alt="Restored Video 4" width="320" height="240">
+  <img src="assets/raindrop.gif" alt="Restored Video 3" width="240" height="180">
+  <img src="assets/snowwww.gif" alt="Restored Video 4" width="240" height="180">
 </p>
 <!-- End of the GIF grid -->
 
