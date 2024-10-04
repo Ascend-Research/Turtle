@@ -1,7 +1,9 @@
 # <img src="assets/turtle.png" alt="Lego Turtle" width="50"> **Turtle: Learning Truncated Causal History Model for Video Restoration**
 
 
-The official PyTorch implementation for **Learning Truncated Causal History Model for Video Restoration**, accepted to NeurIPS 2024. TURTLE achieves state-of-the-art results on multiple video restoration benchmarks, offering superior computational efficiency and enhanced restoration quality 🔥🔥🔥.
+The official PyTorch implementation for **Learning Truncated Causal History Model for Video Restoration**, accepted to NeurIPS 2024. 
+
+<img src="assets/turtle.png" alt="Lego Turtle" width="30"> achieves state-of-the-art results on multiple video restoration benchmarks, offering superior computational efficiency and enhanced restoration quality 🔥🔥🔥.
 
 
 <p align="center">
