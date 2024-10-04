@@ -18,7 +18,7 @@ python setup.py develop --no_cuda_ext
 
 ## Trained Models
 
-You can download our trained models from the following link:
+You can download our trained models from google drive:
 
 [Trained Models](https://drive.google.com/drive/folders/1Mur4IboaNgEW5qyynTIHq8CSAGtyykrA?usp=sharing)
 
