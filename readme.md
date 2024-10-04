@@ -2,6 +2,34 @@
 
 This is the official PyTorch implementation of the paper **Learning Truncated Causal History Model for Video Restoration** which is accepted to NeurIPS'24.
 
+## Video Examples
+
+<!-- Start of the video grid -->
+<p align="center">
+  <video width="320" height="240" controls>
+    <source src="assets/gopro.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <video width="320" height="240" controls>
+    <source src="assets/nightrain30.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</p>
+
+<p align="center">
+  <video width="320" height="240" controls>
+    <source src="assets/raindrop.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <video width="320" height="240" controls>
+    <source src="assets/snowwww.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</p>
+<!-- End of the video grid -->
+
 ## Installation
 This implementation is based on [BasicSR](https://github.com/xinntao/BasicSR) which is an open-source toolbox for image/video restoration tasks.
 
