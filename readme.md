@@ -6,13 +6,13 @@ This is the official PyTorch implementation of the paper **Learning Truncated Ca
 
 <!-- Start of the GIF grid -->
 <p align="center">
-  <img src="assets/gopro..gif" alt="Restored Video 1" width="320" height="240">
+  <img src="assets/gopro.gif" alt="Restored Video 1" width="320" height="240">
   <img src="assets/nightrain30.gif" alt="Restored Video 2" width="320" height="240">
 </p>
 
 <p align="center">
   <img src="assets/raindrop.gif" alt="Restored Video 3" width="320" height="240">
-  <img src="assets/snowwww..gif" alt="Restored Video 4" width="320" height="240">
+  <img src="assets/snowwww.gif" alt="Restored Video 4" width="320" height="240">
 </p>
 <!-- End of the GIF grid -->
 
