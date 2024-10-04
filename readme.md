@@ -10,8 +10,9 @@ The official PyTorch implementation for **Learning Truncated Causal History Mode
 
 <p align="center">
   <img src="assets/raindrop.gif" alt="Restored Video 3" width="240" height="180">
-  <img src="assets/your_image.png" alt="Your Image" width="240" height="180">
+  <img src="assets/snowwww.gif" alt="Restored Video 4" width="240" height="180">
 </p>
+
 
 
 ## Installation
