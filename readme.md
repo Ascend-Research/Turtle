@@ -8,10 +8,10 @@ The official PyTorch implementation for **Learning Truncated Causal History Mode
     <tr>
       <!-- First row: Two videos and the image that spans two rows -->
       <td>
-        <img src="assets/gopro.gif" alt="Restored Video 1" width="240" height="180">
+        <img src="assets/gopro.gif" alt="Restored Video 1" width="220" height="180">
       </td>
       <td>
-        <img src="assets/nightrain30.gif" alt="Restored Video 2" width="240" height="180">
+        <img src="assets/nightrain30.gif" alt="Restored Video 2" width="220" height="180">
       </td>
       <td rowspan="2">
         <img src="assets/memory_comparison.png" alt="Your Image" width="480" height="360">
@@ -20,10 +20,10 @@ The official PyTorch implementation for **Learning Truncated Causal History Mode
     <tr>
       <!-- Second row: Two more videos -->
       <td>
-        <img src="assets/raindrop.gif" alt="Restored Video 3" width="240" height="180">
+        <img src="assets/raindrop.gif" alt="Restored Video 3" width="220" height="180">
       </td>
       <td>
-        <img src="assets/snowwww.gif" alt="Restored Video 4" width="240" height="180">
+        <img src="assets/snowwww.gif" alt="Restored Video 4" width="220" height="180">
       </td>
     </tr>
   </table>
