@@ -4,31 +4,17 @@ This is the official PyTorch implementation of the paper **Learning Truncated Ca
 
 ## Video Examples
 
-<!-- Start of the video grid -->
+<!-- Start of the GIF grid -->
 <p align="center">
-  <video width="320" height="240" controls>
-    <source src="assets/gopro.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-
-  <video width="320" height="240" controls>
-    <source src="assets/nightrain30.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <img src="assets/gopro..gif" alt="Restored Video 1" width="320" height="240">
+  <img src="assets/nightrain30.gif" alt="Restored Video 2" width="320" height="240">
 </p>
 
 <p align="center">
-  <video width="320" height="240" controls>
-    <source src="assets/raindrop.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-
-  <video width="320" height="240" controls>
-    <source src="assets/snowwww.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <img src="assets/raindrop.gif" alt="Restored Video 3" width="320" height="240">
+  <img src="assets/snowwww..gif" alt="Restored Video 4" width="320" height="240">
 </p>
-<!-- End of the video grid -->
+<!-- End of the GIF grid -->
 
 ## Installation
 This implementation is based on [BasicSR](https://github.com/xinntao/BasicSR) which is an open-source toolbox for image/video restoration tasks.
