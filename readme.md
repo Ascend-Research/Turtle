@@ -14,7 +14,7 @@ The official PyTorch implementation for **Learning Truncated Causal History Mode
         <img src="assets/nightrain30.gif" alt="Restored Video 2" width="240" height="180">
       </td>
       <td rowspan="2">
-        <img src="assets/memory_comparison.png" alt="Your Image" width="240" height="360">
+        <img src="assets/memory_comparison.png" alt="Your Image" width="480" height="360">
       </td>
     </tr>
     <tr>
