@@ -166,6 +166,7 @@ This codebase borrows from the following repositories.
 ### 6. Citation
 
 If you find our work useful, please consider citing our paper in your research.
+
 And if you like this project, don't forget to give us a ⭐ on [GitHub](https://github.com/Ascend-Research/Turtle)!🚀
 
 
