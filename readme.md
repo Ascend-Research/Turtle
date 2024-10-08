@@ -19,7 +19,7 @@ The official PyTorch implementation for **Learning Truncated Causal History Mode
   <img src="assets/snowwww.gif" alt="Restored Video 4" width="280" height="180">
 </p>
 
-## 📰 Updates 
+### 📰 Updates 
 - Oct. 10, 2024: The paper is now available on [arxiv](http://export.arxiv.org/abs/2410.03936) along with the code and pretrained models.
 
   
