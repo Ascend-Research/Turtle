@@ -118,7 +118,7 @@ Adjust the function parameters in the Python file according to each task require
 8. `y_channel_PSNR`: Enable if need to calculate PSNR/SSIM in Y Channel, default is set to False.
 
 
-### 3.2 Inference on given videos:
+### 3.2 Running Turtle on Custom Videos:
 
 This pipeline processes a video by extracting frames and running a pre-trained model for tasks like desnowing:
 
