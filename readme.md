@@ -158,10 +158,7 @@ python basicsr/models/archs/turtle_arch.py
 
 ### 5. Acknowledgments
 
-This codebase borrows from the following repositories.
-
-1. [BasicSR](https://github.com/xinntao/BasicSR)
-2. [ShiftNet](https://github.com/dasongli1/Shift-Net)
+This codebase borrows from the following [BasicSR](https://github.com/xinntao/BasicSR) and [ShiftNet](https://github.com/dasongli1/Shift-Net) repositories.
 
 ### 6. Citation
 
