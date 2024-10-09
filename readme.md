@@ -15,8 +15,9 @@
 
 The official PyTorch implementation for **Learning Truncated Causal History Model for Video Restoration**, accepted to NeurIPS 2024. 
 
-<img src="assets/turtle.png" alt="Lego Turtle" width="30"> achieves state-of-the-art results on multiple video restoration benchmarks, offering superior computational efficiency and enhanced restoration quality 🔥🔥🔥.
+Turtle achieves state-of-the-art results on multiple video restoration benchmarks, offering superior computational efficiency and enhanced restoration quality 🔥🔥🔥.
 
+if you like this project, please give us a ⭐ on Github!🚀 
 
 <p align="center">
   <img src="assets/gopro.gif" alt="Restored Video 1" width="280" height="180">
@@ -173,8 +174,6 @@ This codebase borrows from the following [BasicSR](https://github.com/xinntao/Ba
 ### 6. Citation
 
 If you find our work useful, please consider citing our paper in your research.
-
-And if you like this project, don't forget to give us a ⭐ on [GitHub](https://github.com/Ascend-Research/Turtle)!🚀
 
 
 ```
