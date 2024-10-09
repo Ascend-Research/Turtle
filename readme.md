@@ -1,3 +1,12 @@
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/learning-truncated-causal-history-model-for/deblurring-on-beam-splitter-deblurring-bsd)](https://paperswithcode.com/sota/deblurring-on-beam-splitter-deblurring-bsd?p=learning-truncated-causal-history-model-for)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/learning-truncated-causal-history-model-for/rain-removal-on-nighrain)](https://paperswithcode.com/sota/rain-removal-on-nighrain?p=learning-truncated-causal-history-model-for)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/learning-truncated-causal-history-model-for/snow-removal-on-rvsd)](https://paperswithcode.com/sota/snow-removal-on-rvsd?p=learning-truncated-causal-history-model-for)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/learning-truncated-causal-history-model-for/video-deraining-on-vrds)](https://paperswithcode.com/sota/video-deraining-on-vrds?p=learning-truncated-causal-history-model-for)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/learning-truncated-causal-history-model-for/video-denoising-on-set8-sigma50)](https://paperswithcode.com/sota/video-denoising-on-set8-sigma50?p=learning-truncated-causal-history-model-for)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/learning-truncated-causal-history-model-for/deblurring-on-gopro)](https://paperswithcode.com/sota/deblurring-on-gopro?p=learning-truncated-causal-history-model-for)
+
+
+
 # <img src="assets/turtle.png" alt="Lego Turtle" width="50"> **Turtle: Learning Truncated Causal History Model for Video Restoration [NeurIPS'2024]**
 
 [📄 arxiv](https://arxiv.org/abs/2410.03936)
