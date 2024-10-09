@@ -1,8 +1,8 @@
-# <img src="assets/turtle.png" alt="Lego Turtle" width="50"> **Turtle: Learning Truncated Causal History Model for Video Restoration**
+# <img src="assets/turtle.png" alt="Lego Turtle" width="50"> **Turtle: Learning Truncated Causal History Model for Video Restoration [NeurIPS'2024]**
 
-[arxiv📄](https://arxiv.org/abs/2410.03936)
+[📄 arxiv](https://arxiv.org/abs/2410.03936)
 **|** 
-[Website🌐](https://kjanjua26.github.io/turtle/)
+[🌐 Website](https://kjanjua26.github.io/turtle/)
 
 The official PyTorch implementation for **Learning Truncated Causal History Model for Video Restoration**, accepted to NeurIPS 2024. 
 
@@ -19,8 +19,9 @@ The official PyTorch implementation for **Learning Truncated Causal History Mode
   <img src="assets/snowwww.gif" alt="Restored Video 4" width="280" height="180">
 </p>
 
-### 📰 Updates 
+### 🔥 📰 News 🔥
 - Oct. 10, 2024: The paper is now available on [arxiv](http://export.arxiv.org/abs/2410.03936) along with the code and pretrained models.
+- Sept 25, 2024: Turtle is accepted to NeurIPS'2024.
 
   
 ## Table of Contents
