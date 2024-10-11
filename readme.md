@@ -17,7 +17,7 @@ The official PyTorch implementation for **Learning Truncated Causal History Mode
 
 Turtle achieves state-of-the-art results on multiple video restoration benchmarks, offering superior computational efficiency and enhanced restoration quality 🔥🔥🔥.
 
-if you like this project, please give us a ⭐ on Github!🚀 
+If you like this project, please give us a ⭐ on Github!🚀 
 
 <p align="center">
   <img src="assets/gopro.gif" alt="Restored Video 1" width="280" height="180">
