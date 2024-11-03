@@ -15,9 +15,11 @@
 
 The official PyTorch implementation for **Learning Truncated Causal History Model for Video Restoration**, accepted to NeurIPS 2024. 
 
-Turtle achieves state-of-the-art results on multiple video restoration benchmarks, offering superior computational efficiency and enhanced restoration quality 🔥🔥🔥.
-
-If you like this project, please give us a ⭐ on Github!🚀 
+- Turtle achieves state-of-the-art results on multiple video restoration benchmarks, offering superior computational efficiency and enhanced restoration quality 🔥🔥🔥.
+- **Model Forge**: Easily design your own architecture by modifying the option file.
+    - You have the flexibility to choose from various types of layers—such as channel attention, simple channel attention, CHM, FHR, or custom blocks—as well as different types of feed-forward layers.
+    - This setup allows you to create custom networks and experiment with layer and feed-forward configurations to suit your needs. 
+- If you like this project, please give us a ⭐ on Github!🚀 
 
 <p align="center">
   <img src="assets/gopro.gif" alt="Restored Video 1" width="280" height="180">
