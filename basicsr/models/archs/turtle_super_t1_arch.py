@@ -990,11 +990,15 @@ class TurtleSuper_t1(nn.Module):
                                 current], dim=1)
         else:
             inp_img = inp_img_[:, 1, :, :, :]
-            current = inp_img
 
         # do upsampling since it is superresolution task.
         inp_img = self.upsample_4x(inp_img)
         inp_img = self.check_image_size(inp_img)
+        if self.use_both_input:
+            current = self.upsample_4x(current)
+            current = self.check_image_size(current)
+        else:
+            current = inp_img.copy()
         
         inp_enc_level1 = self.input_projection(inp_img.float())
         
