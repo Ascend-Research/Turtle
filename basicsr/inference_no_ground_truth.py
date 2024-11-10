@@ -116,8 +116,8 @@ def run_inference_patched(img_lq_prev,
     return restored, patch_dict_k, patch_dict_v
 
 def load_model(path, model):
-    device = torch.device("cpu")
-    # device = torch.device("cuda:7" if torch.cuda.is_available() else "cpu")
+    #device = torch.device("cpu")
+    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
     model.load_state_dict(torch.load(path)['params'])
     model = model.to(device)
     model.eval()
