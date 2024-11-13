@@ -13,7 +13,7 @@ no_augment: False
 loss_type: 1*L1
 patch_size: 192
 size_must_mode: 4
-model: Gaiasupert1_arch
+model: Turtlesuper_t1_arch
 pretrain_models_dir: None
 type: superresolution
 dim: 64
