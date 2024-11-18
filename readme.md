@@ -179,5 +179,9 @@ If you find our work useful, please consider citing our paper in your research.
 
 
 ```
-   BibTeX
+@inproceedings{ghasemabadilearning,
+  title={Learning Truncated Causal History Model for Video Restoration},
+  author={Ghasemabadi, Amirhosein and Janjua, Muhammad Kamran and Salameh, Mohammad and Niu, Di},
+  booktitle={The Thirty-eighth Annual Conference on Neural Information Processing Systems}
+}
 ```
