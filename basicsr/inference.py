@@ -509,7 +509,7 @@ if __name__ == "__main__":
     #             dataset_name="NightRain", #GoPro, SR, NightRain, DVD, Set8
     #             task_name="Deraining", #Deblurring, SR, Deraining, Deblurring, Denoising
 
-    #             model_type="t0", #simple_parallel(For big patches), simple
+    #             model_type="t0",
 
     #             save_image=True,
     #             image_out_path="/home/amir/codes/temp/",
@@ -536,7 +536,7 @@ if __name__ == "__main__":
     #             dataset_name="VRDS", #GoPro, SR, NightRain, DVD, Set8
     #             task_name="Deraining", #Deblurring, SR, Deraining, Deblurring, Denoising
 
-    #             model_type="t1", #simple_parallel(For big patches), simple
+    #             model_type="t1",
 
     #             save_image=True,
     #             image_out_path="/home/amir/codes/temp/",
@@ -561,7 +561,7 @@ if __name__ == "__main__":
     #             dataset_name="GoPro", #GoPro, SR, NightRain, DVD, Set8
     #             task_name="Deblurring", #Deblurring, SR, Deraining, Deblurring, Denoising
 
-    #             model_type="t1", #simple_parallel(For big patches), simple
+    #             model_type="t1",
 
     #             save_image=True,
     #             image_out_path="/home/amir/codes/temp/Gopro",
@@ -588,7 +588,7 @@ if __name__ == "__main__":
     #             dataset_name="BSD", #GoPro, SR, NightRain, DVD, Set8
     #             task_name="Deblurring", #Deblurring, SR, Deraining, Deblurring, Denoising
 
-    #             model_type="t0", #simple_parallel(For big patches), simple
+    #             model_type="t0",
 
     #             save_image=True,
     #             image_out_path="/home/amir/codes/temp/",
