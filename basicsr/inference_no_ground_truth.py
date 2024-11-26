@@ -88,6 +88,15 @@ def run_inference_patched(img_lq_prev,
 
             in_patch_curr = img_lq_curr[..., h_idx:h_idx+tile, w_idx:w_idx+tile]
             in_patch_prev = img_lq_prev[..., h_idx:h_idx+tile, w_idx:w_idx+tile]
+
+                        # prepare for SR following EAVSR.
+            if dataset_name == "MVSR":
+                in_patch_prev = torch.nn.functional.interpolate(in_patch_prev, 
+                                                                    scale_factor=1/4,
+                                                                    mode="bicubic")
+                in_patch_curr = torch.nn.functional.interpolate(in_patch_curr, 
+                                                                    scale_factor=1/4, 
+                                                                    mode="bicubic")
     
             x = torch.concat((in_patch_prev.unsqueeze(0), 
                               in_patch_curr.unsqueeze(0)), dim=1)
