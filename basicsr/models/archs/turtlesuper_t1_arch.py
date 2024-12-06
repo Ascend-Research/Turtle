@@ -988,18 +988,16 @@ class TurtleSuper_t1(nn.Module):
             previous, current = inp_img_[:, 0, :, :, :], inp_img_[:, 1, :, :, :]
             inp_img = torch.cat([previous, 
                                 current], dim=1)
+            # do upsampling since it is superresolution task.
+            inp_img = self.upsample_4x(inp_img)
+            inp_img = self.check_image_size(inp_img)
         else:
             inp_img = inp_img_[:, 1, :, :, :]
+            # do upsampling since it is superresolution task.
+            inp_img = self.upsample_4x(inp_img)
+            inp_img = self.check_image_size(inp_img)
+            current = inp_img
 
-        # do upsampling since it is superresolution task.
-        inp_img = self.upsample_4x(inp_img)
-        inp_img = self.check_image_size(inp_img)
-        if self.use_both_input:
-            current = self.upsample_4x(current)
-            current = self.check_image_size(current)
-        else:
-            current = inp_img.copy()
-        
         inp_enc_level1 = self.input_projection(inp_img.float())
         
         out_enc_level1, k1_tocahe, v1_tocahe = self.encoder_level1(inp_enc_level1, 
@@ -1064,7 +1062,7 @@ class TurtleSuper_t1(nn.Module):
         v_to_cache.append(v8_tocahe)
 
         out_dec_level1, _, _ = self.refinement(out_dec_level1)
-
+        
         ending = self.ending(out_dec_level1) + current
 
         return (ending[:, :, :H, :W],
@@ -1072,7 +1070,7 @@ class TurtleSuper_t1(nn.Module):
                 v_to_cache)
 
     def check_image_size(self, x):
-        _, _, _, h, w = x.size()
+        _, _, h, w = x.size()
         mod_pad_h = (self.padder_size - h % self.padder_size) % self.padder_size
         mod_pad_w = (self.padder_size - w % self.padder_size) % self.padder_size
         x = F.pad(x, (0, mod_pad_w, 0, mod_pad_h))
