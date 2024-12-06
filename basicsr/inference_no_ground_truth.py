@@ -294,7 +294,12 @@ if __name__ == "__main__":
     st = time.time()
 
     #----------------------------------------------------------------------------------------------------------
-    #Desnowing
+    #Super-Resolution
+
+    """
+    if the input video is already in lower spatial resolution than your desired output resolution, 
+    this downsampling step should be commented in the inference code(lines 100 & 178).
+    """
     config = "/options/Turtle_SR_MVSR.yml"
     model_path = "/trained_models/SuperResolution.pth"
     model_name = "SR_test"
@@ -311,7 +316,7 @@ if __name__ == "__main__":
                 image_out_path="/outputs/",
 
                 do_pacthes=True,
-                tile=256,
+                tile=320,
                 tile_overlap=128)
 
     end = time.time()
