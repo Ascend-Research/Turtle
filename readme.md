@@ -35,6 +35,8 @@ The official PyTorch implementation for **Learning Truncated Causal History Mode
 - Oct. 10, 2024: The paper is now available on [arxiv](http://export.arxiv.org/abs/2410.03936) along with the code and pretrained models.
 - Sept 25, 2024: Turtle is accepted to NeurIPS'2024.
 
+### Issue Log 🚩🚩
+1. SuperResolution Issues: ~There were some missing methods in the inference file for SR tasks, along with skip connection in the main model causing shape mismatch errors.~ We have now fixed this and pushed update for both the inference code, and the model. ✅✅
   
 ## Table of Contents
 1. [Installation](#installation)
@@ -169,11 +171,22 @@ This pipeline processes a video by extracting frames and running a pre-trained m
 python basicsr/models/archs/turtle_arch.py
 ```
 
-### 5. Acknowledgments
+### Contributions 📝📝
+
+We invite the community to contribute to extending **TURTLE** to other low-level vision tasks. Below is a list of specific areas where contributions could be highly valuable if the models are open-sourced. If you have other suggestions or requests, please feel free to open an issue.
+
+1. **Training TURTLE for Synthetic Super-Resolution Tasks**  
+   - **Bicubic (BI) Degradation**: Train on REDS, Vimeo90K and evaluate on REDSS4, Vimeo90K-T.  
+   - **Blur-Downsampling (BD) Degradation**: Train on Vimeo90K and evaluate on Vimeo90K-T, Vid4, UDM10.
+
+For more information on dataset selection and data preparation, please refer to Section 4.3 in this [paper](https://arxiv.org/pdf/2206.02146).
+
+
+### Acknowledgments
 
 This codebase borrows from the following [BasicSR](https://github.com/xinntao/BasicSR) and [ShiftNet](https://github.com/dasongli1/Shift-Net) repositories.
 
-### 6. Citation
+### Citation
 
 If you find our work useful, please consider citing our paper in your research.
 
