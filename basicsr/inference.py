@@ -27,7 +27,7 @@ from importlib import import_module
 placeholder_dp = "path to save noisy images for denoising task"
 
 #Path to the datasetfolder for inference
-pth_to_dataset_folder = "/home/amir"
+pth_to_dataset_folder = "/datasets/"
 
 
 def ssim_calculate(img1, img2, sd=1.5, C1=0.01**2, C2=0.03**2):
@@ -178,7 +178,8 @@ def run_inference_patched(img_lq_prev,
                           prev_patch_dict_k=None, 
                           prev_patch_dict_v=None,
                           img_multiple_of = 8,
-                          scale=1):
+                          scale=1,
+                          model_type='t0'):
     
     height, width = img_lq_curr.shape[2], img_lq_curr.shape[3]
     
@@ -210,7 +211,7 @@ def run_inference_patched(img_lq_prev,
             in_patch_prev = img_lq_prev[..., h_idx:h_idx+tile, w_idx:w_idx+tile]
             
             # prepare for SR following EAVSR.
-            if dataset_name == "MVSR":
+            if model_type == "SR":
                 in_patch_prev = torch.nn.functional.interpolate(in_patch_prev, 
                                                                     scale_factor=1/4,
                                                                     mode="bicubic")
@@ -246,7 +247,7 @@ def run_inference_patched(img_lq_prev,
 
 def load_model(path, model):
     # device = torch.device("cpu")
-    device = torch.device("cuda:5" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.load_state_dict(torch.load(path)['params'])
     model = model.to(device)
     model.eval()
@@ -263,7 +264,8 @@ def run_inference(video_name, test_loader,
                   image_out_path, tile, 
                   tile_overlap, 
                   dataset_name,
-                  y_channel_PSNR=False):
+                  y_channel_PSNR=False, 
+                  model_type='t0'):
     
     previous_frame = None
     previous_gt = None
@@ -289,8 +291,17 @@ def run_inference(video_name, test_loader,
                                         tile_overlap=tile_overlap,
                                         dataset_name=dataset_name, 
                                         prev_patch_dict_k=k_cache, 
-                                        prev_patch_dict_v=v_cache)
+                                        prev_patch_dict_v=v_cache,
+                                        model_type=model_type)
         else:
+            # prepare for SR following EAVSR.
+            if model_type == "SR":
+                previous_frame = torch.nn.functional.interpolate(previous_frame, 
+                                                                    scale_factor=1/4,
+                                                                    mode="bicubic")
+                current_frame = torch.nn.functional.interpolate(current_frame, 
+                                                                    scale_factor=1/4, 
+                                                                    mode="bicubic")
             # do inference on whole frame if the memory can be fit.
             x = torch.concat((previous_frame.unsqueeze(0), 
                             current_frame.unsqueeze(0)), dim=0).to(device)
@@ -317,7 +328,7 @@ def run_inference(video_name, test_loader,
         
         
         print(f"PSNR for Frame: {ix} -- {psnr_score}")
-        print(f"SSIM for frame {ix} -- {ssim_score}")
+        # print(f"SSIM for frame {ix} -- {ssim_score}")
 
         per_video_score.append(psnr_score)
         per_video_ssim.append(ssim_score)
@@ -411,7 +422,7 @@ def main(model_path,
     elif dataset_name == "BSD":
         data_dir = pth_to_dataset_folder + "/datasets/BSD_3ms24ms/prepd_data/test/blur/"
     elif dataset_name == "MVSR":
-        data_dir = pth_to_dataset_folder + "/datasets/MVSR/blur/"
+        data_dir = pth_to_dataset_folder + "/datasets/MVSR4x/test/blur/"
     else:
         print(f"Invalid Options.")
         exit(0)
@@ -427,7 +438,7 @@ def main(model_path,
 
     for video in videos:
         video_name = video.split('/')[-1]
-        if video_name == "00006":
+        if video_name:
             if task_name == "Denoising":
                 data = Denoising(data_dir,
                                 video_name,
@@ -453,7 +464,8 @@ def main(model_path,
                                                             tile=tile,
                                                             tile_overlap=tile_overlap,
                                                             dataset_name=dataset_name,
-                                                            y_channel_PSNR=y_channel_PSNR)
+                                                            y_channel_PSNR=y_channel_PSNR,
+                                                            model_type=model_type)
             total_score_psnr.append(per_video_score)
             total_score_ssim.append(per_video_ssim)
         
@@ -467,39 +479,65 @@ def main(model_path,
     return total_psnr, total_ssim
 
 
+
 if __name__ == "__main__":
     st = time.time()
 
     # #----------------------------------------------------------------------------------------------------------
     #Desnowing
-    config = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/options/Turtle_Desnow.yml"
-    model_path = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/trained_models/Desnow.pth"
-    model_name = "Gaia_Desnow_simple_full"
+    # config = "options/Turtle_Desnow.yml"
+    # model_path = "trained_models/Desnow.pth"
+    # model_name = "Gaia_Desnow_simple_full"
+    # print(model_name)
+    # _, _ = main(model_path=model_path,
+    #             model_name=model_name, 
+    #             config_file=config,
+
+    #             dataset_name="RSVD", #GoPro, SR, NightRain, DVD, Set8
+    #             task_name="Desnowing", #Deblurring, SR, Deraining, Deblurring, Denoising
+
+    #             model_type="t0",
+
+    #             save_image=True,
+    #             image_out_path="/outputs/",
+
+    #             do_pacthes=True,
+    #             tile=320,
+    #             tile_overlap=256)
+
+    # end = time.time()
+    # print(f"Completed in {end-st}s")
+
+
+    # ----------------------------------------------------------------------------------------------------------
+    # SR, MVSR Dataset
+    config = "options/Turtle_SR_MVSR.yml"
+    model_path = "trained_models/SuperResolution.pth"
+    model_name = "SR"
     print(model_name)
     _, _ = main(model_path=model_path,
                 model_name=model_name, 
                 config_file=config,
 
-                dataset_name="RSVD", #GoPro, SR, NightRain, DVD, Set8
-                task_name="Desnowing", #Deblurring, SR, Deraining, Deblurring, Denoising
+                dataset_name="MVSR", #GoPro, MVSR, NightRain, DVD, Set8
+                task_name="SuperResolution", #Deblurring, SuperResolution, Deraining, Deblurring, Denoising
 
-                model_type="t0",
+                model_type="SR", #t0,t1,SR
 
                 save_image=True,
-                image_out_path="/home/amir/codes/temp/snow_bird_out",
+                image_out_path="/outputs/",
 
                 do_pacthes=True,
-                tile=320,
-                tile_overlap=256)
+                tile=256,
+                tile_overlap=64)
 
     end = time.time()
     print(f"Completed in {end-st}s")
 
-
     # # ----------------------------------------------------------------------------------------------------------
     # #Deraining, night
-    # config = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/options/Turtle_Derain.yml"
-    # model_path = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/trained_models/NightRain.pth"
+    # config = "options/Turtle_Derain.yml"
+    # model_path = "trained_models/NightRain.pth"
     # model_name = "Turtle_Derain_simple_320_128_30"
     # print(model_name)
     # _, _ = main(model_path=model_path,
@@ -512,7 +550,7 @@ if __name__ == "__main__":
     #             model_type="t0",
 
     #             save_image=True,
-    #             image_out_path="/home/amir/codes/temp/",
+    #             image_out_path="/outputs/",
 
     #             do_pacthes=True,
     #             tile=320,
@@ -525,8 +563,8 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------------------------------------------
     # Deraining, raindrop
 
-    # config = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/options/Turtle_Derain_VRDS.yml"
-    # model_path = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/trained_models/RainDrop.pth"
+    # config = "options/Turtle_Derain_VRDS.yml"
+    # model_path = "trained_models/RainDrop.pth"
     # model_name = "Turtle_RainDrop_simple_320_128"
     # print(model_name)
     # _, _ = main(model_path=model_path,
@@ -539,7 +577,7 @@ if __name__ == "__main__":
     #             model_type="t1",
 
     #             save_image=True,
-    #             image_out_path="/home/amir/codes/temp/",
+    #             image_out_path="/outputs/",
 
     #             do_pacthes=True,
     #             tile=320,
@@ -550,8 +588,8 @@ if __name__ == "__main__":
 
     #----------------------------------------------------------------------------------------------------------
     # Deblurring, Gopro
-    # config = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/options/Turtle_Deblur_Gopro.yml"
-    # model_path = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/trained_models/GoPro_Deblur.pth"
+    # config = "options/Turtle_Deblur_Gopro.yml"
+    # model_path = "trained_models/GoPro_Deblur.pth"
     # model_name = "Turtle_GoPro_simple_320_128_200k_kamran_no_pos"
     # print(model_name)
     # _, _ = main(model_path=model_path,
@@ -564,7 +602,7 @@ if __name__ == "__main__":
     #             model_type="t1",
 
     #             save_image=True,
-    #             image_out_path="/home/amir/codes/temp/Gopro",
+    #             image_out_path="/outputs/",
 
     #             do_pacthes=True,
     #             tile=320,
@@ -577,8 +615,8 @@ if __name__ == "__main__":
     # #----------------------------------------------------------------------------------------------------------
     # # Deblur, BSD
     # #90Kmodel
-    # config = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/options/Turtle_Derain_VRDS.yml"
-    # model_path = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/trained_models/BSD.pth"
+    # config = "options/Turtle_Derain_VRDS.yml"
+    # model_path = "trained_models/BSD.pth"
     # model_name = "Turtle_BSD082_simple_320_128"
     # print(model_name)
     # _, _ = main(model_path=model_path,
@@ -591,7 +629,7 @@ if __name__ == "__main__":
     #             model_type="t0",
 
     #             save_image=True,
-    #             image_out_path="/home/amir/codes/temp/",
+    #             image_out_path="/outputs/",
 
     #             do_pacthes=True,
     #             tile=320,
