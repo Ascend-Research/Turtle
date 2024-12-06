@@ -58,7 +58,8 @@ def run_inference_patched(img_lq_prev,
                           prev_patch_dict_k=None, 
                           prev_patch_dict_v=None,
                           img_multiple_of = 8,
-                          scale=1):
+                          scale=1,
+                          model_type='t0'):
     
     height, width = img_lq_curr.shape[2], img_lq_curr.shape[3]
     
@@ -71,6 +72,9 @@ def run_inference_patched(img_lq_prev,
         
     # test the image tile by tile
     b, c, h, w = img_lq_curr.shape
+    # if model_type == "SR":
+    #     h,w = h*4,w*4
+
     tile = min(tile, h, w)
     assert tile % 8 == 0, "tile size should be multiple of 8"
     tile_overlap = tile_overlap
@@ -81,6 +85,9 @@ def run_inference_patched(img_lq_prev,
     E = torch.zeros(b, c, h, w).type_as(img_lq_curr)
     W = torch.zeros_like(E)
 
+    print(f"E: {E.shape}")
+    print(f"W: {W.shape}")
+
     patch_dict_k = {}
     patch_dict_v = {}
     for h_idx in h_idx_list:
@@ -89,15 +96,16 @@ def run_inference_patched(img_lq_prev,
             in_patch_curr = img_lq_curr[..., h_idx:h_idx+tile, w_idx:w_idx+tile]
             in_patch_prev = img_lq_prev[..., h_idx:h_idx+tile, w_idx:w_idx+tile]
 
-                        # prepare for SR following EAVSR.
-            if dataset_name == "MVSR":
+            # prepare for SR following EAVSR.
+            if model_type == "SR":
                 in_patch_prev = torch.nn.functional.interpolate(in_patch_prev, 
                                                                     scale_factor=1/4,
                                                                     mode="bicubic")
                 in_patch_curr = torch.nn.functional.interpolate(in_patch_curr, 
                                                                     scale_factor=1/4, 
                                                                     mode="bicubic")
-    
+
+            
             x = torch.concat((in_patch_prev.unsqueeze(0), 
                               in_patch_curr.unsqueeze(0)), dim=1)
             x = x.to(device)
@@ -125,8 +133,8 @@ def run_inference_patched(img_lq_prev,
     return restored, patch_dict_k, patch_dict_v
 
 def load_model(path, model):
-    #device = torch.device("cpu")
-    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cpu")
+    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.load_state_dict(torch.load(path)['params'])
     model = model.to(device)
     model.eval()
@@ -141,7 +149,8 @@ def run_inference(video_name, test_loader,
                   model_name,
                   save_img, do_patched, 
                   image_out_path, tile, 
-                  tile_overlap):
+                  tile_overlap,
+                  model_type):
     
     previous_frame = None
 
@@ -162,8 +171,17 @@ def run_inference(video_name, test_loader,
                                         model, device, tile=tile, 
                                         tile_overlap=tile_overlap,
                                         prev_patch_dict_k=k_cache, 
-                                        prev_patch_dict_v=v_cache)
+                                        prev_patch_dict_v=v_cache,
+                                        model_type=model_type)
         else:
+            # superresolution
+            if model_type == "SR":
+                previous_frame = torch.nn.functional.interpolate(previous_frame, 
+                                                                    scale_factor=1/4,
+                                                                    mode="bicubic")
+                current_frame = torch.nn.functional.interpolate(current_frame, 
+                                                                    scale_factor=1/4, 
+                                                                    mode="bicubic")
             # do inference on whole frame if the memory can be fit.
             x = torch.concat((previous_frame.unsqueeze(0), 
                             current_frame.unsqueeze(0)), dim=0).to(device)
@@ -266,7 +284,8 @@ def main(model_path,
                                 do_patched=do_pacthes,
                                 image_out_path=image_out_path,
                                 tile=tile,
-                                tile_overlap=tile_overlap)
+                                tile_overlap=tile_overlap,
+                                model_type=model_type)
 
     return 0, 0
 
@@ -276,43 +295,67 @@ if __name__ == "__main__":
 
     #----------------------------------------------------------------------------------------------------------
     #Desnowing
-    config = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/options/Turtle_Desnow.yml"
-    model_path = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/trained_models/Desnow.pth"
-    model_name = "Gaia_Desnow_simple_full"
+    config = "/options/Turtle_SR_MVSR.yml"
+    model_path = "/trained_models/SuperResolution.pth"
+    model_name = "SR_test"
     print(model_name)
     _, _ = main(model_path=model_path,
                 model_name=model_name, 
                 config_file=config,
 
-                data_dir="/home/amir/codes/temp/snow_bird", #Path to the desired video frames folder
+                data_dir="/data_dir/", #Path to the desired video frames folder
 
-                model_type="t0",
+                model_type="SR",
 
                 save_image=True,
-                image_out_path="/home/amir/codes/temp/snow_bird_out",
+                image_out_path="/outputs/",
 
                 do_pacthes=True,
-                tile=384,
-                tile_overlap=256)
+                tile=256,
+                tile_overlap=128)
 
     end = time.time()
     print(f"Completed in {end-st}s")
-
-
-    # # ----------------------------------------------------------------------------------------------------------
-    # #Deraining, night
-    # config = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/options/Turtle_Derain.yml"
-    # model_path = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/trained_models/NightRain.pth"
-    # model_name = "Turtle_Derain_simple_320_128_30"
+    
+    # #----------------------------------------------------------------------------------------------------------
+    # #desnowing
+    # config = "/options/Turtle_Desnow.yml"
+    # model_path = "/trained_models/Desnow.pth"
+    # model_name = "Turtle_desnow_simple_full"
     # print(model_name)
     # _, _ = main(model_path=model_path,
     #             model_name=model_name, 
     #             config_file=config,
 
+    #             data_dir="/data_dir/", #Path to the desired video frames folder
+
+    #             model_type="t0",
+
+    #             save_image=True,
+    #             image_out_path="/outputs/",
+
+    #             do_pacthes=True,
+    #             tile=320,
+    #             tile_overlap=128)
+
+    # end = time.time()
+    # print(f"Completed in {end-st}s")
+
+
+    # # ----------------------------------------------------------------------------------------------------------
+    # #Deraining, night
+    # config = "/options/Turtle_Derain.yml"
+    # model_path = "/trained_models/NightRain.pth"
+    # model_name = "Turtle_Derain_simple_320_128_30"
+    # print(model_name)
+    # _, _ = main(model_path=model_path,
+    #             model_name=model_name, 
+    #             config_file=config,
+    #             data_dir="/data_dir/", #Path to the desired video frames folder
     #             model_type="t0", #simple_parallel(For big patches), simple
 
     #             save_image=True,
-    #             image_out_path="/home/amir/codes/temp/",
+    #             image_out_path="/outputs/",
 
     #             do_pacthes=True,
     #             tile=320,
@@ -324,14 +367,14 @@ if __name__ == "__main__":
     # ----------------------------------------------------------------------------------------------------------
     # Deraining, raindrop
 
-    # config = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/options/Turtle_Derain_VRDS.yml"
-    # model_path = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/trained_models/RainDrop.pth"
+    # config = "/options/Turtle_Derain_VRDS.yml"
+    # model_path = "/trained_models/RainDrop.pth"
     # model_name = "Turtle_RainDrop_simple_320_128"
     # print(model_name)
     # _, _ = main(model_path=model_path,
     #             model_name=model_name, 
     #             config_file=config,
-
+    #             data_dir="/data_dir/", #Path to the desired video frames folder
     #             model_type="t1", #simple_parallel(For big patches), simple
 
     #             save_image=True,
@@ -346,14 +389,15 @@ if __name__ == "__main__":
 
     # #----------------------------------------------------------------------------------------------------------
     # # Deblurring, Gopro
-    # config = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/options/Turtle_Deblur_Gopro.yml"
-    # model_path = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/trained_models/net_g_200000.pth"
+    # config = "/options/Turtle_Deblur_Gopro.yml"
+    # model_path = "/trained_models/net_g_200000.pth"
     # model_name = "Turtle_GoPro_simple_320_128_200k_kamran_no_pos"
     # print(model_name)
     # _, _ = main(model_path=model_path,
     #             model_name=model_name, 
     #             config_file=config,
 
+    #             data_dir="/data_dir/", #Path to the desired video frames folder
     #             model_type="t1", #simple_parallel(For big patches), simple
 
     #             save_image=False,
@@ -370,14 +414,15 @@ if __name__ == "__main__":
     # #----------------------------------------------------------------------------------------------------------
     # # Deblur, BSD
     # #90Kmodel
-    # config = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/options/Turtle_Derain_VRDS.yml"
-    # model_path = "/home/amir/codes/Turtle_NeurIPS_VideoRestoration/trained_models/BSD.pth"
+    # config = "/options/Turtle_Derain_VRDS.yml"
+    # model_path = "/trained_models/BSD.pth"
     # model_name = "Turtle_BSD082_simple_320_128"
     # print(model_name)
     # _, _ = main(model_path=model_path,
     #             model_name=model_name, 
     #             config_file=config,
 
+    #             data_dir="/data_dir/", #Path to the desired video frames folder
     #             model_type="t0", #simple_parallel(For big patches), simple
 
     #             save_image=True,
