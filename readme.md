@@ -35,8 +35,6 @@ The official PyTorch implementation for **Learning Truncated Causal History Mode
 - Oct. 10, 2024: The paper is now available on [arxiv](http://export.arxiv.org/abs/2410.03936) along with the code and pretrained models.
 - Sept 25, 2024: Turtle is accepted to NeurIPS'2024.
 
-### Issue Log 🚩🚩
-1. SuperResolution Issues: ~There were some missing methods in the inference file for SR tasks, along with skip connection in the main model causing shape mismatch errors.~ We have now fixed this and pushed update for both the inference code, and the model. ✅✅
   
 ## Table of Contents
 1. [Installation](#installation)
