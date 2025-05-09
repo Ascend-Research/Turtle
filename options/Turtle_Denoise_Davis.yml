@@ -39,20 +39,20 @@ encoder3_attn_type2 : "Channel"
 encoder3_ffw_type : "GFFW"
 
 decoder1_attn_type1 : "Channel"
-decoder1_attn_type2 : "MEST"
+decoder1_attn_type2 : "CHM"
 decoder1_ffw_type : "GFFW"
 
 decoder2_attn_type1 : "Channel"
-decoder2_attn_type2 : "MEST"
+decoder2_attn_type2 : "CHM"
 decoder2_ffw_type : "GFFW"
 
 decoder3_attn_type1 : "Channel"
-decoder3_attn_type2 : "MEST"
+decoder3_attn_type2 : "CHM"
 decoder3_ffw_type : "GFFW"
 
-latent_attn_type1 : "CTS"
+latent_attn_type1 : "FHR"
 latent_attn_type2 : "Channel"
-latent_attn_type3 : "CTS"
+latent_attn_type3 : "FHR"
 latent_ffw_type : "GFFW"
 
 refinement_attn_type1 : "ReducedAttn"
