@@ -230,7 +230,7 @@ def create_video_model(opt, model_type="t0"):
         module = import_module('basicsr.models.archs.turtle_t1_arch')
         model = module.make_model(opt)
     elif model_type == "SR":
-        module = import_module('basicsr.models.archs.turtle_super_t1_arch')
+        module = import_module('turtlesuper_t1_arch')
         model = module.make_model(opt)
     else:
         print("Model type not defined")
