@@ -182,9 +182,12 @@ If you find our work useful, please consider citing our paper in your research.
 
 
 ```
-@inproceedings{ghasemabadilearning,
-  title={Learning Truncated Causal History Model for Video Restoration},
-  author={Ghasemabadi, Amirhosein and Janjua, Muhammad Kamran and Salameh, Mohammad and Niu, Di},
-  booktitle={The Thirty-eighth Annual Conference on Neural Information Processing Systems}
+@article{ghasemabadi2024learning,
+  title={Learning truncated causal history model for video restoration},
+  author={Ghasemabadi, Amirhosein and Janjua, Muhammad K and Salameh, Mohammad and Niu, Di},
+  journal={Advances in Neural Information Processing Systems},
+  volume={37},
+  pages={27584--27615},
+  year={2024}
 }
 ```
